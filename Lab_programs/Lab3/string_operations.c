@@ -71,7 +71,7 @@ char* string_insert_sub_string(char str[], char sub[], int pos){
 
     return result;
 }
-
+//TODO delete substring
 char* string_delete_sub_string(char str[], char sub[]){
     int len1 = length_of_string(str);
     int len2 = length_of_string(sub);
