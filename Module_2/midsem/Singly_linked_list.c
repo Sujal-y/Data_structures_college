@@ -1,34 +1,34 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct cnode{
+struct Node{
     int data;
-    struct cnode* next;
+    struct Node* next;
 };
 
-struct cnode* createnode(int data){
-    struct cnode* newnode =(struct cnode*)malloc(sizeof(struct cnode));
+struct Node* createnode(int data){
+    struct Node* newnode =(struct Node*)malloc(sizeof(struct Node));
     newnode->data = data;
     newnode -> next = NULL;
     return newnode;
 }
 
-void insert_at_first(struct cnode** head , int data){
+void insert_at_first(struct Node** head , int data){
 
     if(*head == NULL){
         *head = createnode(data);
         return;
     }
-    struct cnode* newnode = createnode(data);
+    struct Node* newnode = createnode(data);
     newnode ->next = *head;
     *head = newnode;
 }
 
-void insert_at_end(struct cnode** head, int data){
-    struct cnode* temp = *head;
+void insert_at_end(struct Node** head, int data){
+    struct Node* temp = *head;
 
     if(temp == NULL){
-        struct cnode* newnode = createnode(data);
+        struct Node* newnode = createnode(data);
         *head = newnode;
     }
 
@@ -39,11 +39,11 @@ void insert_at_end(struct cnode** head, int data){
 
 }
 
-void insert_at_pos(struct cnode** head, int data , int loc){
-    struct cnode* temp = *head;
+void insert_at_pos(struct Node** head, int data , int loc){
+    struct Node* temp = *head;
 
     if (loc == 0) {
-        struct cnode* newnode = createnode(data);
+        struct Node* newnode = createnode(data);
         newnode->next = *head;
         *head = newnode;
         return;
@@ -66,14 +66,14 @@ void insert_at_pos(struct cnode** head, int data , int loc){
         return;
     }
 
-    struct cnode* newnode = createnode(data);
+    struct Node* newnode = createnode(data);
     newnode->next = temp->next;
     temp->next = newnode;
 }
 
-void deletion_at_first(struct cnode** head){
+void deletion_at_first(struct Node** head){
 
-    struct cnode* temp = *head;
+    struct Node* temp = *head;
 
     if(temp == NULL){
         return;
@@ -83,9 +83,9 @@ void deletion_at_first(struct cnode** head){
     free(temp);
 }
 
-void deletion_at_end(struct cnode** head){
+void deletion_at_end(struct Node** head){
 
-    struct cnode* temp = *head;
+    struct Node* temp = *head;
 
     if(temp == NULL){
         return;
@@ -97,7 +97,7 @@ void deletion_at_end(struct cnode** head){
         return;
     }
 
-    struct cnode* temp1 = temp;
+    struct Node* temp1 = temp;
 
     while(temp ->next!=NULL){
         temp1 = temp;
@@ -108,9 +108,9 @@ void deletion_at_end(struct cnode** head){
 
 }
 
-void deletion_at_pos(struct cnode** head, int loc){
+void deletion_at_pos(struct Node** head, int loc){
 
-    struct cnode* temp = *head;
+    struct Node* temp = *head;
 
     if(temp == NULL){
         printf("EMPTY LIST!! \n");
@@ -123,7 +123,7 @@ void deletion_at_pos(struct cnode** head, int loc){
         return;
     }
 
-    struct cnode* prev = temp;
+    struct Node* prev = temp;
 
     int i = 0;
     while(i < loc){
@@ -140,8 +140,8 @@ void deletion_at_pos(struct cnode** head, int loc){
 
 }
 
-void search(struct cnode** head, int key){
-    struct cnode* temp = *head;
+void search(struct Node** head, int key){
+    struct Node* temp = *head;
 
 
     int i=0;
@@ -157,10 +157,10 @@ void search(struct cnode** head, int key){
 
 }
 
-void reverse(struct cnode** head){
-    struct cnode* current = *head;
-    struct cnode* next;
-    struct cnode* prev = NULL;
+void reverse(struct Node** head){
+    struct Node* current = *head;
+    struct Node* next;
+    struct Node* prev = NULL;
 
     if(current == NULL){
         printf("Empty list\n");
@@ -178,8 +178,8 @@ void reverse(struct cnode** head){
 }
 
 
-void print(struct cnode* head){
-    struct cnode* temp = head;
+void print(struct Node* head){
+    struct Node* temp = head;
     printf("The singly linked list:- \n");
 
     if(temp == NULL){
@@ -195,7 +195,7 @@ void print(struct cnode* head){
 }
 
 int main(){
-    struct cnode* head = NULL;
+    struct Node* head = NULL;
 
 //    print(head);
 //    insert_at_first(&head,5);

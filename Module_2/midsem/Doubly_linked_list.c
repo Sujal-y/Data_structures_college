@@ -1,39 +1,39 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct cnode{
+struct Node{
     int data;
-    struct cnode* next;
-    struct cnode* prev;
+    struct Node* next;
+    struct Node* prev;
 };
 
-struct cnode* createnode(int data){
-    struct cnode* newnode =(struct cnode*)malloc(sizeof(struct cnode));
+struct Node* createnode(int data){
+    struct Node* newnode =(struct Node*)malloc(sizeof(struct Node));
     newnode->data = data;
     newnode -> next = NULL;
     newnode->prev =NULL;
     return newnode;
 }
 
-void insert_at_first(struct cnode** head , int data){
+void insert_at_first(struct Node** head , int data){
 
     if(*head == NULL){
         *head = createnode(data);
         return;
     }
-    struct cnode* temp = *head;
-    struct cnode* newnode = createnode(data);
+    struct Node* temp = *head;
+    struct Node* newnode = createnode(data);
     newnode ->next = *head;
     newnode->prev = NULL;
     temp ->prev = newnode;
     *head = newnode;
 }
 
-void insert_at_end(struct cnode** head, int data){
-    struct cnode* temp = *head;
+void insert_at_end(struct Node** head, int data){
+    struct Node* temp = *head;
 
     if(temp == NULL){
-        struct cnode* newnode = createnode(data);
+        struct Node* newnode = createnode(data);
         *head = newnode;
         return;
     }
@@ -42,18 +42,18 @@ void insert_at_end(struct cnode** head, int data){
         temp = temp -> next;
     }
 
-    struct cnode* newnode = createnode(data);
+    struct Node* newnode = createnode(data);
     temp->next = newnode;
     newnode ->prev = temp;
 
 
 }
 
-void insert_at_pos(struct cnode** head, int data , int loc){
-    struct cnode* temp = *head;
+void insert_at_pos(struct Node** head, int data , int loc){
+    struct Node* temp = *head;
 
     if (loc == 0) {
-        struct cnode* newnode = createnode(data);
+        struct Node* newnode = createnode(data);
         newnode->next = *head;
         newnode ->prev =NULL;
         *head = newnode;
@@ -77,7 +77,7 @@ void insert_at_pos(struct cnode** head, int data , int loc){
         return;
     }
 
-    struct cnode* newnode = createnode(data);
+    struct Node* newnode = createnode(data);
     newnode->next = temp->next;
     newnode->prev = temp;
     temp ->next = newnode;
@@ -90,9 +90,9 @@ void insert_at_pos(struct cnode** head, int data , int loc){
 
 }
 
-void deletion_at_first(struct cnode** head){
+void deletion_at_first(struct Node** head){
 
-    struct cnode* temp = *head;
+    struct Node* temp = *head;
 
     if(temp == NULL){
         return;
@@ -107,9 +107,9 @@ void deletion_at_first(struct cnode** head){
     *head = NULL;
 }
 
-void deletion_at_end(struct cnode** head){
+void deletion_at_end(struct Node** head){
 
-    struct cnode* temp = *head;
+    struct Node* temp = *head;
 
     if(temp == NULL){
         return;
@@ -121,7 +121,7 @@ void deletion_at_end(struct cnode** head){
         return;
     }
 
-    struct cnode* temp1 = temp;
+    struct Node* temp1 = temp;
 
     while(temp ->next != NULL){
         temp1 = temp;
@@ -132,9 +132,9 @@ void deletion_at_end(struct cnode** head){
 
 }
 
-void deletion_at_pos(struct cnode** head, int loc){
+void deletion_at_pos(struct Node** head, int loc){
 
-    struct cnode* temp = *head;
+    struct Node* temp = *head;
 
     if(temp == NULL){
         printf("EMPTY LIST!! \n");
@@ -166,7 +166,7 @@ void deletion_at_pos(struct cnode** head, int loc){
         return;
     }
 
-    struct cnode* node_deleted = temp->next;
+    struct Node* node_deleted = temp->next;
     temp -> next = node_deleted->next;
 
     if (node_deleted->next != NULL) {
@@ -176,8 +176,8 @@ void deletion_at_pos(struct cnode** head, int loc){
     free(node_deleted);
 }
 
-void search(struct cnode** head, int key){
-    struct cnode* temp = *head;
+void search(struct Node** head, int key){
+    struct Node* temp = *head;
 
 
     int i=0;
@@ -193,8 +193,8 @@ void search(struct cnode** head, int key){
 
 }
 
-void print(struct cnode* head){
-    struct cnode* temp = head;
+void print(struct Node* head){
+    struct Node* temp = head;
     printf("The doubly linked list:- \n");
 
     if(temp == NULL){
@@ -209,8 +209,8 @@ void print(struct cnode* head){
     printf("NULL\n");
 }
 
-void print_reverse(struct cnode* head){
-    struct cnode* temp = head;
+void print_reverse(struct Node* head){
+    struct Node* temp = head;
     printf("The reversed doubly linked list:- \n");
 
     if(temp == NULL){
@@ -230,7 +230,7 @@ void print_reverse(struct cnode* head){
 }
 
 int main(){
-    struct cnode* head = NULL;
+    struct Node* head = NULL;
 
 //    print(head);
 //    insert_at_first(&head,5);
