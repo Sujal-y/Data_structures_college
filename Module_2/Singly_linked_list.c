@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+//todo give comments
 struct Node{
     int data;
     struct Node* next;
@@ -12,7 +12,7 @@ struct Node* createnode(int data){
     newnode -> next = NULL;
     return newnode;
 }
-
+//inserting a node in the beginning using head
 void insert_at_first(struct Node** head , int data){
 
     if(*head == NULL){
@@ -24,6 +24,7 @@ void insert_at_first(struct Node** head , int data){
     *head = newnode;
 }
 
+//inserting a node in the end using head
 void insert_at_end(struct Node** head, int data){
     struct Node* temp = *head;
 
@@ -39,6 +40,7 @@ void insert_at_end(struct Node** head, int data){
 
 }
 
+//inserting a node in the pos using head
 void insert_at_pos(struct Node** head, int data , int loc){
     struct Node* temp = *head;
 
@@ -71,6 +73,7 @@ void insert_at_pos(struct Node** head, int data , int loc){
     temp->next = newnode;
 }
 
+//deletion of a node in the beginning using head
 void deletion_at_first(struct Node** head){
 
     struct Node* temp = *head;
@@ -83,6 +86,7 @@ void deletion_at_first(struct Node** head){
     free(temp);
 }
 
+//deletion of a node in the end using head
 void deletion_at_end(struct Node** head){
 
     struct Node* temp = *head;
@@ -108,6 +112,7 @@ void deletion_at_end(struct Node** head){
 
 }
 
+//deletion of a node in a position using head
 void deletion_at_pos(struct Node** head, int loc){
 
     struct Node* temp = *head;
@@ -140,6 +145,7 @@ void deletion_at_pos(struct Node** head, int loc){
 
 }
 
+//searching an element in singly linked list
 void search(struct Node** head, int key){
     struct Node* temp = *head;
 
@@ -157,6 +163,7 @@ void search(struct Node** head, int key){
 
 }
 
+//reverses an array
 void reverse(struct Node** head){
     struct Node* current = *head;
     struct Node* next;
@@ -177,7 +184,7 @@ void reverse(struct Node** head){
     *head = prev;
 }
 
-
+//prints the singly linked list
 void print(struct Node* head){
     struct Node* temp = head;
     printf("The singly linked list:- \n");

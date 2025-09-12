@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+//todo give comments
 struct cnode{
     int data;
     struct cnode* next;

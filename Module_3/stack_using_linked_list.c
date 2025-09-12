@@ -12,35 +12,40 @@ struct node* createnode(int data){
     newnode->next =NULL;
     return newnode;
 }
-//push
+//push(item) : places item on top the stack
 void push(struct node** top,int item){
+    //case: stack is empty
     if(*top == NULL){
         *top = createnode(item);
         return;
     }
     struct node* newnode = createnode(item);
-    newnode ->next = *top;
-    (*top) = newnode;
+    newnode ->next = *top; //new item is pointing to top
+    (*top) = newnode; // the top is changed to the new item
 }
-//pop
+//pop : removes the top item from the stack
 void pop(struct node** top){
+    //case: stack is empty
     if(*top == NULL){
+        printf("Nothing to pop\n");
         return;
     }
     struct node* temp = *top;
-    (*top) = (*top)->next;
-    free(temp);
+    (*top) = (*top)->next; //top is reassigned to next pointer
+    free(temp); //old top saved using temp is freed
 }
-//peek
+//peek : prints the top element
 void peek(struct node** top){
+    //case: the stack is empty
     if(*top == NULL){
         printf("stack is empty!!\n");
         return;
     }
     printf("peeking at %d",(*top)->data);
 }
-//display
+//display : displays the stack
 void display(struct node** top){
+    //case: the stack is empty
     if(*top == NULL){
         printf("stack is empty!!\n");
         return;
