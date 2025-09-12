@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-//todo give comments
+
 struct Node{
     int data;
     struct Node* next;
@@ -15,24 +15,28 @@ struct Node* createnode(int data){
 //inserting a node in the beginning using head
 void insert_at_first(struct Node** head , int data){
 
+    //case: if the list is empty
     if(*head == NULL){
         *head = createnode(data);
         return;
     }
     struct Node* newnode = createnode(data);
-    newnode ->next = *head;
-    *head = newnode;
+    newnode ->next = *head; //newnode points to towards previous head
+    *head = newnode;//head is pointed to newnode
 }
 
 //inserting a node in the end using head
 void insert_at_end(struct Node** head, int data){
     struct Node* temp = *head;
 
+    //case: if the list is empty
     if(temp == NULL){
         struct Node* newnode = createnode(data);
         *head = newnode;
+        return;
     }
 
+    //traverses until the last node which points to NULL
     while(temp->next !=NULL){
         temp = temp -> next;
     }
@@ -44,6 +48,7 @@ void insert_at_end(struct Node** head, int data){
 void insert_at_pos(struct Node** head, int data , int loc){
     struct Node* temp = *head;
 
+    //case: inserting at first position
     if (loc == 0) {
         struct Node* newnode = createnode(data);
         newnode->next = *head;
@@ -51,9 +56,11 @@ void insert_at_pos(struct Node** head, int data , int loc){
         return;
     }
 
+    //traverses through the linked list until the node before you want to insert
     int i =0;
     while(i<loc-1) {
 
+        //case: if position is outside the last node
         if(temp == NULL){
             printf("Out of bounds!!");
             return;
@@ -63,6 +70,7 @@ void insert_at_pos(struct Node** head, int data , int loc){
         temp = temp->next;
     }
 
+    //Check again after the loop in case the target position is right after the last node
     if(temp == NULL){
         printf("Out of bounds!!");
         return;
@@ -78,6 +86,7 @@ void deletion_at_first(struct Node** head){
 
     struct Node* temp = *head;
 
+    //case: empty list
     if(temp == NULL){
         return;
     }
@@ -91,23 +100,27 @@ void deletion_at_end(struct Node** head){
 
     struct Node* temp = *head;
 
+    //case: list is empty
     if(temp == NULL){
         return;
     }
 
+    //case: the list has only one node
     if (temp->next == NULL) {
         free(temp);
         *head = NULL;
         return;
     }
 
-    struct Node* temp1 = temp;
+    //stores the node before the last node
+    struct Node* prev_temp = temp;
 
+    //traverses temp to the last node
     while(temp ->next!=NULL){
-        temp1 = temp;
+        prev_temp = temp;
         temp = temp->next;
     }
-    temp1 -> next = NULL;
+    prev_temp -> next = NULL;
     free(temp);
 
 }
@@ -117,30 +130,34 @@ void deletion_at_pos(struct Node** head, int loc){
 
     struct Node* temp = *head;
 
+    //case: empty list
     if(temp == NULL){
         printf("EMPTY LIST!! \n");
         return;
     }
 
+    //case : deleting first node
     if (loc == 0) {
         *head = temp -> next;
         free(temp);
         return;
     }
 
-    struct Node* prev = temp;
+    struct Node* prev_temp = temp;
 
+    //traverses temp to the node to be deleted
     int i = 0;
     while(i < loc){
-        prev = temp;
+        prev_temp = temp;
         temp = temp->next;
         i++;
     }
+    //if temp is past the end of the list
     if(temp == NULL){
         printf("out of bounds \n");
         return;
     }
-    prev -> next = temp -> next;
+    prev_temp -> next = temp -> next;
     free(temp);
 
 }
@@ -149,9 +166,10 @@ void deletion_at_pos(struct Node** head, int loc){
 void search(struct Node** head, int key){
     struct Node* temp = *head;
 
-
+    //traverses temp to the last node
     int i=0;
     while(temp != NULL){
+        //if element found it will end the function using return
         if(temp->data == key){
             printf("Found the element %d at index %d",key,i);
             return;
@@ -169,18 +187,21 @@ void reverse(struct Node** head){
     struct Node* next;
     struct Node* prev = NULL;
 
+    //case : the list is empty
     if(current == NULL){
         printf("Empty list\n");
         return;
     }
 
+
     while(current != NULL){
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
+        next = current->next; // saves the next node address
+        current->next = prev; // changes current node to previous node address
+        prev = current; // updates previous address as current for the next node
+        current = next; //current node is switched to next node
     }
 
+    //the head is changed to the tail of the original list
     *head = prev;
 }
 
@@ -229,13 +250,13 @@ int main(){
 //    deletion_at_end(&head);
 //    print(head);
 
-//    deletion_at_pos(&head,2);
+//    deletion_at_pos(&head,5);
 //    print(head);
 
 //    search(&head,50);
 
-    reverse(&head);
-    print(head);
+//    reverse(&head);
+//    print(head);
 
 
 
