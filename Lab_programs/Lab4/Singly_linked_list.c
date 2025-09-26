@@ -12,118 +12,96 @@ struct Node* createnode(int data){
     newnode -> next = NULL;
     return newnode;
 }
-//inserting a node in the beginning using head
-void insert_at_first(struct Node** head , int data){
 
-    //case: if the list is empty
-    if(*head == NULL){
-        *head = createnode(data);
-        return;
-    }
-    struct Node* newnode = createnode(data);
-    newnode ->next = *head; //newnode points to towards previous head
-    *head = newnode;//head is pointed to newnode
-}
-
-//inserting a node in the end using head
-void insert_at_end(struct Node** head, int data){
+//basic list generation
+void basic_list(struct Node** head) {
+    struct Node *newnode = createnode(5);
+    *head = newnode;
     struct Node* temp = *head;
-
-    //case: if the list is empty
-    if(temp == NULL){
-        struct Node* newnode = createnode(data);
-        *head = newnode;
-        return;
-    }
-
-    //traverses until the last node which points to NULL
-    while(temp->next !=NULL){
-        temp = temp -> next;
-    }
-    temp->next = createnode(data);
+    temp->next = createnode(10);
+    temp = temp->next;
+    temp->next = createnode(15);
+    temp = temp->next;
+    temp->next = createnode(20);
+    temp = temp->next;
+    temp->next = createnode(25);
 
 }
 
-//inserting a node in the pos using head
-void insert_at_pos(struct Node** head, int data , int loc){
+//1
+void insert_before_element(struct Node** head){
     struct Node* temp = *head;
+    struct Node* prev_temp = NULL;
+    int data;
+    int after_target;
+    printf("enter data to be entered:- ");
+    scanf("%d",&data);
+    printf("the data to be entered before which element:- ");
+    scanf("%d",&after_target);
 
-    //case: inserting at first position
-    if (loc == 0) {
-        struct Node* newnode = createnode(data);
-        newnode->next = *head;
-        *head = newnode;
+    if (temp == NULL) {
+        printf("empty set");
         return;
     }
 
-    //traverses through the linked list until the node before you want to insert
-    int i =0;
-    while(i<loc-1) {
-
-        //case: if position is outside the last node
-        if(temp == NULL){
-            printf("Out of bounds!!");
-            return;
-        }
-        i++;
-
+    while (temp->data != after_target) {
+        prev_temp=temp;
         temp = temp->next;
     }
 
     //Check again after the loop in case the target position is right after the last node
-    if(temp == NULL){
-        printf("Out of bounds!!");
+    if(temp->next == NULL && temp->data != after_target){
+        printf("element not there!!");
+        return;
+    }
+
+    if (prev_temp == NULL) {
+        *head = createnode(data);
+        (*head)->next = temp;
+        printf("insertion completed!\n");
+        return;
+    }
+
+    struct Node* newnode = createnode(data);
+    newnode->next = temp->next;
+    prev_temp->next = newnode;
+    printf("insertion completed!\n");
+}
+
+//2
+void insert_after_element(struct Node** head){
+    struct Node* temp = *head;
+    int data;
+    int before_target;
+    printf("enter data to be entered:- ");
+    scanf("%d",&data);
+    printf("the data to be entered after which element:- ");
+    scanf("%d",&before_target);
+
+    if (temp == NULL) {
+        printf("empty set");
+        return;
+    }
+
+    while (temp->data != before_target) {
+        temp = temp->next;
+    }
+
+    //Check again after the loop in case the target position is right after the last node
+    if(temp->next == NULL && temp->data != before_target){
+        printf("element not there!!");
         return;
     }
 
     struct Node* newnode = createnode(data);
     newnode->next = temp->next;
     temp->next = newnode;
+    printf("insertion completed!\n");
 }
+//3
+void deletion_element(struct Node ** node) {
 
-//deletion of a node in the beginning using head
-void deletion_at_first(struct Node** head){
-
-    struct Node* temp = *head;
-
-    //case: empty list
-    if(temp == NULL){
-        return;
-    }
-
-    *head = temp ->next;
-    free(temp);
-}
-
-//deletion of a node in the end using head
-void deletion_at_end(struct Node** head){
-
-    struct Node* temp = *head;
-
-    //case: list is empty
-    if(temp == NULL){
-        return;
-    }
-
-    //case: the list has only one node
-    if (temp->next == NULL) {
-        free(temp);
-        *head = NULL;
-        return;
-    }
-
-    //stores the node before the last node
-    struct Node* prev_temp = temp;
-
-    //traverses temp to the last node
-    while(temp ->next!=NULL){
-        prev_temp = temp;
-        temp = temp->next;
-    }
-    prev_temp -> next = NULL;
-    free(temp);
-
-}
+};
 
 //deletion of a node in a position using head
 void deletion_at_pos(struct Node** head, int loc){
@@ -178,11 +156,28 @@ void search(struct Node** head, int key){
         i++;
     }
     printf("element %d does not exist in the list\n",key);
-
 }
 
-//reverses an list
-void reverse(struct Node** head){
+
+//4
+void print(struct Node** head){
+    struct Node* temp = *head;
+    printf("The singly linked list:- \n");
+
+    if(temp == NULL){
+        printf("NULL\n");
+        return;
+    }
+
+    while(temp != NULL){
+        printf("%d -> ",(temp ->data));
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+//5
+void reverse_linked_list_5(struct Node** head){
     struct Node* current = *head;
     struct Node* next;
     struct Node* prev = NULL;
@@ -205,62 +200,56 @@ void reverse(struct Node** head){
     *head = prev;
 }
 
-//prints the singly linked list
-void print(struct Node* head){
-    struct Node* temp = head;
-    printf("The singly linked list:- \n");
 
-    if(temp == NULL){
-        printf("NULL\n");
-        return;
-    }
-
-    while(temp != NULL){
-        printf("%d -> ",(temp ->data));
-        temp = temp->next;
-    }
-    printf("NULL\n");
+void help_msg() {
+    printf("--------------- \n");
+    printf("1.Insert an element before another specified element in the list\n");
+    printf("2.Insert an element after another specified element in the list\n");
+    printf("3.Delete a specified element from the list\n");
+    printf("4.Traverse the list and display all elements\n");
+    printf("5.Reverse the linked list\n");
+    printf("6.Sort the list in ascending order\n");
+    printf("7.Delete every alternate node in the list\n");
+    printf("8.Insert an element into a sorted linked list while maintaining the sorted order\n");
+    printf("9 or e :exit\n");
+    printf("--------------- \n");
 }
+
 
 int main(){
     struct Node* head = NULL;
 
-//    print(head);
-//    insert_at_first(&head,5);
-//    print(head);
-//    insert_at_first(&head,2);
-//    print(head);
-//
-//    insert_at_end(&head,10);
-//    print(head);
-//
-//    insert_at_pos(&head,88,4);
-//    print(head);
+    printf("You are entering menu driven linked list implementation, a basic list is created \n");
+    printf("type h for help\n");
+    char choice;
+    basic_list(&head);
+    while (1) {
+        printf("choice: ");
+        scanf(" %c",&choice);
 
-    insert_at_first(&head,10);
-    insert_at_end(&head,20);
-    insert_at_end(&head,30);
-    insert_at_end(&head,40);
-    insert_at_end(&head,50);
-    print(head);
+        //TODO 3 6 7 8
+        switch (choice) {
+            case 'h':help_msg();
+                break;
+            case 'e':printf("exiting");
+                exit(0);
+                break;
+            case '9':printf("exiting");
+                exit(0);
+                break;
+            case '1':insert_before_element(&head);
+                break;
+            case'2':insert_after_element(&head);
+                break;
+            case '3':deletion_element(&head);
+                break;
+            case'4':print(&head);
+                break;
+            case '5':reverse_linked_list_5(&head);
+                break;
 
-//    deletion_at_first(&head);
-//    print(head);
-//
-//    deletion_at_end(&head);
-//    print(head);
+        }
 
-//    deletion_at_pos(&head,5);
-//    print(head);
-
-//    search(&head,50);
-
-//    reverse(&head);
-//    print(head);
-
-
-
-
-
+    }
     return 0;
 }
