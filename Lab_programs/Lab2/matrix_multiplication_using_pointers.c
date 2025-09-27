@@ -11,6 +11,10 @@ void matrix_2D_entry(int row, int col, int **matrix) {
 }
 
 void display(int row, int col, int **matrix) {
+    if (matrix == NULL) {
+        printf("null matrix");
+        return;
+    }
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < col; j++) {
             printf("%d ", *(*(matrix + i) + j));

@@ -200,6 +200,30 @@ void reverse_linked_list_5(struct Node** head){
     *head = prev;
 }
 
+//6 fucking do it again
+ void sort(struct Node** head) {
+    struct Node* temp = *head;
+
+    int counter =0;
+    while (temp != NULL) {
+        counter++;
+        temp = temp->next;
+    }
+    temp = *head;
+
+    for (int i =0 ; i< counter;i++) {
+        temp = *head;
+        for (int j=0;j<counter-i-1;j++) {
+            if (temp->data > (temp->next)->data) {
+                int temp_data = temp->data;
+                temp->data = (temp->next)->data;
+                temp->next->data=temp_data;
+            }
+            temp = temp->next;
+        }
+    }
+}
+
 
 void help_msg() {
     printf("--------------- \n");
@@ -246,6 +270,8 @@ int main(){
             case'4':print(&head);
                 break;
             case '5':reverse_linked_list_5(&head);
+                break;
+            case'6':sort(&head);
                 break;
 
         }
