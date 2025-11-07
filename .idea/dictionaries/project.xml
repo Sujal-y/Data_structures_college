@@ -5,6 +5,7 @@
       <w>hellotheworld</w>
       <w>isempty</w>
       <w>newnode</w>
+      <w>nodeptr</w>
     </words>
   </dictionary>
 </component>
