@@ -6,6 +6,7 @@
       <w>isempty</w>
       <w>newnode</w>
       <w>nodeptr</w>
+      <w>visted</w>
     </words>
   </dictionary>
 </component>

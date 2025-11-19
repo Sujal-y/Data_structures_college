@@ -282,7 +282,6 @@ int main() {
 
             case 7:
                 printf("Exiting program.\n");
-                // TODO: Add a free_tree(root) function for proper cleanup
                 exit(0);
 
             default:
